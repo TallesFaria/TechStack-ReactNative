@@ -1,2 +1,5 @@
-export const SELECT_LIBRARY = 'select_library';
-export const FETCH_DATA = 'fetch_data';
+export const EMAIL_CHANGED = 'EMAIL_CHANGED';
+export const PASSWORD_CHANGED = 'PASSWORD_CHANGED';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
+export const LOGIN_USER = 'LOGIN_USER';

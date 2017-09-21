@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import ReduxThunk from 'redux-thunk';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
-import { Header, Spinner } from './components/common';
-import LoginForm from './components/LoginForm';
-import TechStack from './components/TechStack';
+import Router from './Router';
 
 export default class App extends Component {
   state = {
@@ -23,34 +21,15 @@ export default class App extends Component {
       messagingSenderId: '993301936186'
     };
     firebase.initializeApp(config);
-
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.setState({ loggedIn: true });
-      } else {
-        this.setState({ loggedIn: false });
-      }
-    });
-  }
-
-  renderContent() {
-    switch (this.state.loggedIn) {
-      case true:
-        return <TechStack />;
-      case false:
-        return <LoginForm />;
-      default:
-        return <Spinner size="large" />;
-    }
   }
 
   render() {
+    //{} == initial state
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
     return (
-      <Provider store={createStore(reducers)}>
-        <View style={styles.container}>
-          <Header headerText="Tech Stack" />
-          {this.renderContent()}
-        </View>
+      <Provider store={store}>
+        <Router />
       </Provider>
     );
   }

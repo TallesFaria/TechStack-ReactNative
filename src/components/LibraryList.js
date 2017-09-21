@@ -25,6 +25,4 @@ const mapStateToProps = state => {
   return { libraries: state.libraries };
 };
 
-//const mapDispatchToProps = dispatch => bindActionCreators({ actions }, dispatch);
-
 export default connect(mapStateToProps)(LibraryList);
